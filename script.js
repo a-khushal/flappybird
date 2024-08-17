@@ -48,7 +48,7 @@ function startGame(ctx, width, height, backgroundImg, groundImg, lowerObst, uppe
         { x: lowerDistX + obstSpacing * 2, y: Math.floor(Math.random() * 186 + 100) },
         { x: lowerDistX + obstSpacing, y: Math.floor(Math.random() * 186 + 100) },
         { x: lowerDistX, y: Math.floor(Math.random() * 186 + 100) }
-    ]
+    ];
 
     const upperObstacles = [
         { x: upperDistX + obstSpacing * 4, y: Math.floor(Math.random() * 181 + 100) },
@@ -56,7 +56,7 @@ function startGame(ctx, width, height, backgroundImg, groundImg, lowerObst, uppe
         { x: upperDistX + obstSpacing * 2, y: Math.floor(Math.random() * 181 + 100) },
         { x: upperDistX + obstSpacing, y: Math.floor(Math.random() * 181 + 100) },
         { x: upperDistX, y: Math.floor(Math.random() * 181 + 100) }
-    ]
+    ];
 
     function drawGround() {
         ctx.drawImage(groundImg, 0, height - 100, width, 100);
@@ -134,7 +134,11 @@ function startGame(ctx, width, height, backgroundImg, groundImg, lowerObst, uppe
             if(e.keyCode == 38) {
                 birdSpeedY = -4;
             }
-        })
+        });
+
+        document.addEventListener('touchstart', () => {
+            birdSpeedY = -4;
+        });
 
         if(birdHeightY >= height - 100 || birdHeightY <= 0) {
             birdHeightY = height / 2;
@@ -149,6 +153,13 @@ function startGame(ctx, width, height, backgroundImg, groundImg, lowerObst, uppe
             loop();
         }
     }); 
+
+    document.addEventListener("touchstart", (e) => {
+        if (!gameStarted) {
+            gameStarted = true; 
+            loop();
+        }
+    });
 
     function restart() {
         window.location.reload();
